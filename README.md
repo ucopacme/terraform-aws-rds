@@ -24,6 +24,7 @@ The module will create:
 
 
 ```hcl
+
 #
 # Include all settings from root terragrunt.hcl file
 include {
@@ -36,13 +37,17 @@ dependency "sg" {
 }
 
 inputs = {
-  subnet_ids             = ["subnet-0ece5975ca259796e", "subnet-084c56f1fd8699660"]
-  allocated_storage      = "100"
-  engine                 = "MySQL"
-  identifier             = "name-rds"
-  engine_version         = "8.0.20"
-  instance_class         = "db.t3.small"
-  vpc_security_group_ids = [dependency.sg.outputs.sg_id]
+  subnet_ids              = ["subnet-0ece5975ca259796e", "subnet-084c56f1fd8699660"]
+  allocated_storage       = "100"
+  engine                  = "MySQL"
+  identifier              = "rds-instance-name"
+  engine_version          = "8.0.20"
+  instance_class          = "db.t3.small"
+  publicly_accessible     = true # by default it is false
+  deletion_protection     = false # by default it is true
+  apply_immediately       = true # by dafault it is true
+  backup_retention_period = "7" * # by default it is 14 days
+  vpc_security_group_ids  = [dependency.sg.outputs.sg_id]
   tags = {
     "ucop:application" = "legal"
     "ucop:createdBy"   = "Terraform"
@@ -53,9 +58,10 @@ inputs = {
 
 }
 
+
 terraform {
-    source = "git::https://git@github.com/ucopacme/terraform-aws-rds.git"
+  source = "git::https://git@github.com/ucopacme/terraform-aws-rds.git"
+
+
 }
-
-
 
