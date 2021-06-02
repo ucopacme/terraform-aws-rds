@@ -32,12 +32,12 @@ variable "storage_encrypted" {
   type        = bool
 }
 variable "publicly_accessible" {
-  default     = true
+  default     = false
   description = "Set to `false` to prevent Database accessibility"
   type        = bool
 }
 variable "deletion_protection" {
-  default     = false
+  default     = true
   description = "Set to `false` to prevent database from deletation"
   type        = bool
 }
@@ -54,7 +54,7 @@ variable "allocated_storage" {
 }
 
 variable "backup_retention_period" {
-  default     = "0"
+  default     = "14"
   description = "enable auto backup and retention"
   type        = string
 }
