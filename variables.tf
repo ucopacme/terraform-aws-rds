@@ -104,3 +104,10 @@ variable "secret_manager_name" {
   default = ""
   
 }
+
+variable "max_allocated_storage" {
+  type = string
+  description = "Max allocate storage"
+  default = null
+  
+}
