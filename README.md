@@ -39,7 +39,8 @@ dependency "sg" {
 
 inputs = {
   subnet_ids              = ["subnet-0ece5975ca259796e", "subnet-084c56f1fd8699660"]
-  allocated_storage       = "100"
+  allocated_storage       = "5"
+  max_allocated_storage   = "100" # by default it is disabled
   engine                  = "MySQL"
   identifier              = "rds-instance-name"
   secret_manager_name     = "secret-manager-rds"
@@ -62,7 +63,7 @@ inputs = {
 
 
 terraform {
-  source = "git::https://git@github.com/ucopacme/terraform-aws-rds.git"
+   source = "git::https://git@github.com/ucopacme/terraform-aws-rds.git?ref=v0.0.1"
 
 
 }
