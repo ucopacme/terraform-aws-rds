@@ -29,7 +29,7 @@ resource "aws_db_instance" "this" {
 # create db subnet group
 resource "aws_db_subnet_group" "this" {
   count       = var.enabled ? 1 : 0
-  name        = var.secret_manager_name
+  name        = "${var.identifier}-subnet-group
   description = "Created by terraform"
   subnet_ids  = var.subnet_ids
   tags        = var.tags
@@ -48,7 +48,7 @@ resource "random_password" "password" {
 # create secret and secret versions for database master account 
 
 resource "aws_secretsmanager_secret" "this" {
-  name                    = "${var.identifier}-sec-manager"
+  name                    = var.secret_manager_name
   recovery_window_in_days = 7
   tags                    = var.tags
 }
