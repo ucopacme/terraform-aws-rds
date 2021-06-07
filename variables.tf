@@ -105,9 +105,9 @@ variable "secret_manager_name" {
   
 }
 
-# variable "max_allocated_storage" {
-#   type = string
-#   description = "Max allocate storage"
-#   default = null
+ variable "max_allocated_storage" {
+  type = string 
+  description = "Max allocate storage"
+  default = null
   
-# }
+ } 

@@ -2,7 +2,7 @@
 resource "aws_db_instance" "this" {
   count                   = var.enabled ? 1 : 0
   allocated_storage       = var.allocated_storage
-#   max_allocated_storage   = var.max_allocated_storage
+/* #   max_allocated_storage   = var.max_allocated_storage */
   backup_retention_period = var.backup_retention_period
   deletion_protection     = var.deletion_protection
   db_subnet_group_name    = aws_db_subnet_group.this.*.id[0]
