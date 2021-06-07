@@ -29,7 +29,7 @@ resource "aws_db_instance" "this" {
 # create db subnet group
 resource "aws_db_subnet_group" "this" {
   count       = var.enabled ? 1 : 0
-  name        = "${var.identifier}-subnet-group"
+  name        = var.secret_manager_name
   description = "Created by terraform"
   subnet_ids  = var.subnet_ids
   tags        = var.tags

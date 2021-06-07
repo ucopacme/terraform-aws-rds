@@ -97,3 +97,10 @@ variable "subnet_ids" {
   default     = []
 
 }
+
+variable "secret_manager_name" {
+  type = string
+  description = " secret manager name"
+  default = ""
+  
+}
