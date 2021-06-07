@@ -14,13 +14,14 @@ The module will create:
 * DB Option Group (will use the default )
 * DB Parameter Group (will use the default)
 * DB Subnet Group
-* DB Security Group (Need to be create)
+* DB Security Group
 * Randome Password
 * secret manager
 
 
 
 ## Usage
+Create terragrunt.hcl config file and past the following configuration.
 
 
 ```hcl
@@ -41,6 +42,7 @@ inputs = {
   allocated_storage       = "100"
   engine                  = "MySQL"
   identifier              = "rds-instance-name"
+  secret_manager_name     = "secret-manager-rds"
   engine_version          = "8.0.20"
   instance_class          = "db.t3.small"
   publicly_accessible     = true # by default it is false
