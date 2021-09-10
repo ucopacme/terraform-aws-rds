@@ -10,7 +10,7 @@ Terraform module to provision AWS [`RDS`](https://aws.amazon.com/rds/) instances
 
 The module will create:
 
-* DB instance (MySQL, Postgres, SQL Server, Oracle)
+* DB instance (MySQL)
 * DB Option Group (will use the default )
 * DB Parameter Group (will use the default)
 * DB Subnet Group
