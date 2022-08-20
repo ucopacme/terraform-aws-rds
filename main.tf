@@ -1,4 +1,7 @@
 # create RDS db instance
+terraform {
+  experiments = [provider_sensitive_attrs]
+}
 resource "aws_db_instance" "this" {
   count                   = var.enabled ? 1 : 0
   allocated_storage       = var.allocated_storage
@@ -11,7 +14,7 @@ resource "aws_db_instance" "this" {
   identifier              = var.identifier
   instance_class          = var.instance_class
   username                = local.sso_secrets.username
-  password                = local.sso_secrets.password
+  password                = sensitive(local.sso_secrets.password)
   skip_final_snapshot     = var.skip_final_snapshot
   storage_encrypted       = var.storage_encrypted
   vpc_security_group_ids  = var.vpc_security_group_ids
