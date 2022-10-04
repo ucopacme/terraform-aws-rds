@@ -14,6 +14,7 @@ resource "aws_db_instance" "this" {
   username                = local.sso_secrets.username
   password                = local.sso_secrets.password
   skip_final_snapshot     = var.skip_final_snapshot
+  copy_tags_to_snapshot   = var.copy_tags_to_snapshot
   storage_encrypted       = var.storage_encrypted
   vpc_security_group_ids  = var.vpc_security_group_ids
   publicly_accessible     = var.publicly_accessible
