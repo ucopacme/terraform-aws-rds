@@ -3,7 +3,11 @@ variable "password" {
   type        = string
   default     = ""
 }
-
+variable "copy_tags_to_snapshot" {
+  description = "On delete, copy all Instance tags to the final snapshot"
+  type        = bool
+  default     = true
+}
 variable "secret_id" {
   description = "secret id"
   type        = string
@@ -54,9 +58,9 @@ variable "allocated_storage" {
 }
 
 variable "backup_retention_period" {
-  default     = "14"
+  default     = 14
   description = "enable auto backup and retention"
-  type        = string
+  type        = number
 }
 variable "db_subnet_group_name" {
   default     = ""
