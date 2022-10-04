@@ -19,6 +19,7 @@ resource "aws_db_instance" "this" {
   vpc_security_group_ids  = var.vpc_security_group_ids
   publicly_accessible     = var.publicly_accessible
   apply_immediately       = var.apply_immediately
+  enabled_cloudwatch_logs_exports = var.enabled_cloudwatch_logs_exports
   tags                    = var.tags
 
   depends_on = [
