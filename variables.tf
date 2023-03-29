@@ -44,6 +44,13 @@ variable "publicly_accessible" {
   description = "Set to `false` to prevent Database accessibility"
   type        = bool
 }
+
+variable "parameter_group_name" {
+  default = "default.mysql8.0"
+}
+variable "option_group_name" {
+  default = ""
+}
 variable "deletion_protection" {
   default     = true
   description = "Set to `false` to prevent database from deletation"
