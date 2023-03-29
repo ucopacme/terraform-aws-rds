@@ -18,6 +18,8 @@ resource "aws_db_instance" "this" {
   storage_encrypted       = var.storage_encrypted
   vpc_security_group_ids  = var.vpc_security_group_ids
   publicly_accessible     = var.publicly_accessible
+  parameter_group_name    = var.parameter_group_name
+  option_group_name       = var.option_group_name
   apply_immediately       = var.apply_immediately
   enabled_cloudwatch_logs_exports = var.enabled_cloudwatch_logs_exports
   tags                    = var.tags
