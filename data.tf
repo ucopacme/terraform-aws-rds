@@ -11,4 +11,9 @@ data "aws_secretsmanager_secret" "this" {
 
 data "aws_secretsmanager_secret_version" "this" {
   secret_id = aws_secretsmanager_secret.this.arn
+  depends_on = [
+    aws_secretsmanager_secret.this,
+    aws_secretsmanager_secret_version.this
+
+  ]
 }
