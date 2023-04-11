@@ -16,6 +16,7 @@ resource "aws_db_instance" "this" {
   skip_final_snapshot     = var.skip_final_snapshot
   copy_tags_to_snapshot   = var.copy_tags_to_snapshot
   storage_encrypted       = var.storage_encrypted
+  snapshot_identifier     = var.snapshot_identifier
   vpc_security_group_ids  = var.vpc_security_group_ids
   publicly_accessible     = var.publicly_accessible
   parameter_group_name    = var.parameter_group_name
