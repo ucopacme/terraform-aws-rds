@@ -126,3 +126,9 @@ variable "secret_manager_name" {
   default = null
   
  } 
+variable "snapshot_identifier" {
+  type = string 
+  description = "snapshot_identifier id"
+  default = null
+  
+ } 
