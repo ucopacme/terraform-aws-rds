@@ -54,3 +54,11 @@ module "rds" {
 
 
 }
+
+## Usage
+Create main.tf config file and past the following configuration.
+
+
+```hcl
+
+#
