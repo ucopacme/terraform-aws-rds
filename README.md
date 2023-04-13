@@ -21,50 +21,36 @@ The module will create:
 
 
 ## Usage
-Create terragrunt.hcl config file and past the following configuration.
+Create main.tf config file and past the following configuration.
 
 
 ```hcl
 
 #
-# Include all settings from root terragrunt.hcl file
-include {
-  path = find_in_parent_folders()
-}
 
 
-dependency "sg" {
-  config_path = "../sg"
-}
-
-inputs = {
-  subnet_ids              = ["subnet-0ece5975ca259796e", "subnet-084c56f1fd8699660"]
-  allocated_storage       = "5"
+module "rds" {
+  source                  = "git::https://git@github.com/ucopacme/terraform-aws-rds.git?ref=v0.0.5"
+  subnet_ids              = [local.data_subnet_ids[0], local.data_subnet_ids[1]]
+  allocated_storage       = "50"
   max_allocated_storage   = "100" # by default it is disabled
   engine                  = "MySQL"
-  identifier              = "rds-instance-name"
+  identifier              = "xxx"
   secret_manager_name     = "secret-manager-rds"
-  engine_version          = "8.0.20"
-  instance_class          = "db.t3.small"
-  publicly_accessible     = true # by default it is false
+  engine_version          = "8.0.28"
+  instance_class          = "db.m6g.large"
+  publicly_accessible     = false # by default it is false
   deletion_protection     = false # by default it is true
-  apply_immediately       = true # by dafault it is true
-  backup_retention_period = "7" # by default it is 14 days
-  vpc_security_group_ids  = [dependency.sg.outputs.sg_id]
+  apply_immediately       = true  # by dafault it is true
+  backup_retention_period = "7"   # by default it is 14 days
+  vpc_security_group_ids  = [local.sg_id]
   tags = {
-    "ucop:application" = "legal"
+    "ucop:application" = "xx"
     "ucop:createdBy"   = "Terraform"
-    "ucop:environment"  = "Prod"
-    "ucop:group"       = "CHS"
-    "ucop:source"      = join("/", ["https://github.com/ucopacme/ucop-terraform-config/tree/master/terraform/its-chs-dev/us-west-2", path_relative_to_include()])
+    "ucop:environment" = "xxx"
+    "ucop:group"       = "xxx"
+    "ucop:source"      = "xxxx"
   }
 
-}
-
-
-terraform {
-   source = "git::https://git@github.com/ucopacme/terraform-aws-rds.git?ref=v0.0.1"
-
 
 }
-
