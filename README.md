@@ -31,19 +31,20 @@ Create main.tf config file and past the following configuration.
 
 module "rds" {
   source                  = "git::https://git@github.com/ucopacme/terraform-aws-rds.git?ref=v0.0.5"
-  subnet_ids              = [local.data_subnet_ids[0], local.data_subnet_ids[1]]
+  subnet_ids              = [xxxx, xxxx]
   allocated_storage       = "50"
   max_allocated_storage   = "100" # by default it is disabled
   engine                  = "MySQL"
   identifier              = "xxx"
-  secret_manager_name     = "secret-manager-rds"
+  secret_manager_name     = "xxxx"
   engine_version          = "8.0.28"
   instance_class          = "db.m6g.large"
+   parameter_group_name   = "xxxxx"
   publicly_accessible     = false # by default it is false
   deletion_protection     = false # by default it is true
   apply_immediately       = true  # by dafault it is true
   backup_retention_period = "7"   # by default it is 14 days
-  vpc_security_group_ids  = [local.sg_id]
+  vpc_security_group_ids  = [xxxx]
   tags = {
     "ucop:application" = "xx"
     "ucop:createdBy"   = "Terraform"
@@ -56,9 +57,38 @@ module "rds" {
 }
 
 ## Usage
+Deployment of RDS from snapshot
+
 Create main.tf config file and past the following configuration.
 
 
 ```hcl
 
 #
+
+module "rds" {
+  source                          = "git::https://git@github.com/ucopacme/terraform-aws-rds.git?ref=v0.0.5"
+  subnet_ids                      = ["xxxx", "xxxxx"]
+  allocated_storage               = "60"
+  max_allocated_storage           = "100" # by default it is disabled
+  snapshot_identifier             = "snapshot ARN"
+  identifier                      = "database-1"
+  secret_manager_name             = "xxx"
+  # engine_version                = "8.0.28"
+  instance_class                  = "db.m6g.large"
+  publicly_accessible             = false # by default it is false
+  parameter_group_name            = "xxxx"
+  deletion_protection             = false # by default it is true
+  apply_immediately               = false # by dafault it is true
+  backup_retention_period         = 14    # by default it is 14 days
+  enabled_cloudwatch_logs_exports = ["audit", "error", "general", "slowquery"]
+  vpc_security_group_ids          = [xxx]
+  tags = {
+    "ucop:application" = xxx
+    "ucop:createdBy"   = xxx
+    "ucop:environment" = xxx
+    "ucop:group"       = xxx
+    "ucop:source"      = xxx
+  }
+
+}
