@@ -1,8 +1,3 @@
-variable "password" {
-  description = "RDS Password"
-  type        = string
-  default     = ""
-}
 variable "copy_tags_to_snapshot" {
   description = "On delete, copy all Instance tags to the final snapshot"
   type        = bool
@@ -83,14 +78,9 @@ variable "backup_retention_period" {
   description = "enable auto backup and retention"
   type        = number
 }
-variable "db_subnet_group_name" {
-  default     = ""
-  description = "Specify db subnet group"
-  type        = string
-}
 variable "engine" {
   default     = ""
-  description = "Specify engin name"
+  description = "Specify engine name"
   type        = string
 }
 variable "identifier" {
