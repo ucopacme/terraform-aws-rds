@@ -39,6 +39,16 @@ variable "storage_encrypted" {
   description = "Set to `false` to not encrypt the storage"
   type        = bool
 }
+variable "storage_type" {
+  default     = "gp2"
+  description = "gp2, gp3, or io1. Historical default is gp2."
+  type        = string
+}
+variable "multi_az" {
+  default     = false
+  description = "Specifies if the RDS instance is multi-AZ"
+  type        = bool
+}
 variable "publicly_accessible" {
   default     = false
   description = "Set to `false` to prevent Database accessibility"
@@ -110,25 +120,21 @@ variable "subnet_ids" {
   type        = list(string)
   description = "List of subnets"
   default     = []
-
 }
 
 variable "secret_manager_name" {
   type = string
   description = " secret manager name"
   default = ""
-  
 }
 
  variable "max_allocated_storage" {
-  type = string 
+  type = string
   description = "Max allocate storage"
   default = null
-  
- } 
+}
 variable "snapshot_identifier" {
-  type = string 
+  type = string
   description = "snapshot_identifier id"
   default = null
-  
- } 
+}

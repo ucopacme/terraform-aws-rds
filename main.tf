@@ -11,11 +11,13 @@ resource "aws_db_instance" "this" {
   engine_version          = var.engine_version
   identifier              = var.identifier
   instance_class          = var.instance_class
+  multi_az                = var.multi_az
   username                = local.sso_secrets.username
   password                = local.sso_secrets.password
   skip_final_snapshot     = var.skip_final_snapshot
   copy_tags_to_snapshot   = var.copy_tags_to_snapshot
   storage_encrypted       = var.storage_encrypted
+  storage_type            = var.storage_type
   snapshot_identifier     = var.snapshot_identifier
   vpc_security_group_ids  = var.vpc_security_group_ids
   publicly_accessible     = var.publicly_accessible
@@ -52,7 +54,7 @@ resource "random_password" "password" {
 }
 
 
-# create secret and secret versions for database master account 
+# create secret and secret versions for database master account
 
 resource "aws_secretsmanager_secret" "this" {
   name                    = var.secret_manager_name

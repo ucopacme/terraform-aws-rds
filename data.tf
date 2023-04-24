@@ -2,7 +2,7 @@
   secret_id = var.secret_id
 } */
 
-# Lets import the Secrets which got created recently and store it so that we can use later. 
+# Lets import the Secrets which got created recently and store it so that we can use later.
 
 
 data "aws_secretsmanager_secret" "this" {
