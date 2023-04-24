@@ -24,11 +24,6 @@ variable "enabled" {
   description = "Set to `false` to prevent the module from creating any resources"
   type        = bool
 }
-variable "blue_green_update" {
-  default     = false
-  description = "Enables Low-Downtime Updates when true"
-  type        = bool
-}
 variable "skip_final_snapshot" {
   default     = true
   description = "Set to `false` to skip_final_snapshot"
