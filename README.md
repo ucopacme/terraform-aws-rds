@@ -30,7 +30,7 @@ Create main.tf config file and past the following configuration.
 
 
 module "rds" {
-  source                  = "git::https://git@github.com/ucopacme/terraform-aws-rds.git?ref=v0.0.6"
+  source                  = "git::https://git@github.com/ucopacme/terraform-aws-rds.git?ref=v0.0.7"
   subnet_ids              = [xxxx, xxxx]
   allocated_storage       = "50"
   max_allocated_storage   = "100" # by default it is disabled
