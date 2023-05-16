@@ -35,8 +35,8 @@ variable "storage_encrypted" {
   type        = bool
 }
 variable "storage_type" {
-  default     = "gp2"
-  description = "gp2, gp3, or io1. Historical default is gp2."
+  default     = "gp3"
+  description = "gp2, gp3 (default), or io1."
   type        = string
 }
 variable "multi_az" {
