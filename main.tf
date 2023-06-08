@@ -17,6 +17,7 @@ resource "aws_db_instance" "this" {
   skip_final_snapshot             = var.skip_final_snapshot
   copy_tags_to_snapshot           = var.copy_tags_to_snapshot
   storage_encrypted               = var.storage_encrypted
+  kms_key_id                      = var.create_cmk ? aws_kms_key.this.*.arn[0] : var.kms_key_id
   storage_type                    = var.storage_type
   snapshot_identifier             = var.snapshot_identifier
   vpc_security_group_ids          = var.vpc_security_group_ids
@@ -30,8 +31,8 @@ resource "aws_db_instance" "this" {
   depends_on = [
     aws_db_subnet_group.this,
     aws_secretsmanager_secret.this,
-    aws_secretsmanager_secret_version.this
-
+    aws_secretsmanager_secret_version.this,
+    aws_kms_key.this
   ]
 }
 
@@ -70,4 +71,13 @@ resource "aws_secretsmanager_secret_version" "this" {
     "password": "${random_password.password.result}"
    }
 EOF
+}
+
+resource "aws_kms_key" "this" {
+  count                    = var.create_cmk ? 1 : 0
+  description              = "CMK for RDS instance ${var.identifier}"
+  key_usage                = "ENCRYPT_DECRYPT"
+  customer_master_key_spec = "SYMMETRIC_DEFAULT"
+  multi_region             = var.create_cmk_multi_region
+  tags                     = var.tags
 }

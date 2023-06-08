@@ -34,6 +34,21 @@ variable "storage_encrypted" {
   description = "Set to `false` to not encrypt the storage"
   type        = bool
 }
+variable "kms_key_id" {
+  default     = null
+  description = "(Optional) ARN of existing KMS encryption key to use for storage encryption"
+  type        = string
+}
+variable "create_cmk" {
+  default     = false
+  description = "Create a customer-managed KMS key (CMK) to use for storage encryption"
+  type        = bool
+}
+variable "create_cmk_multi_region" {
+  default     = false
+  description = "Create CMK as a multi-region key (no effect if create_cmk is not true)"
+  type        = bool
+}
 variable "storage_type" {
   default     = "gp3"
   description = "gp2, gp3 (default), or io1."
