@@ -11,17 +11,18 @@ Terraform module to provision AWS [`RDS`](https://aws.amazon.com/rds/) instances
 The module will create:
 
 * DB instance (MySQL)
-* DB Option Group (will use the default )
+* DB Option Group (will use the default)
 * DB Parameter Group (will use the default)
 * DB Subnet Group
 * DB Security Group
 * Random Password
 * secret manager
+* Customer-managed KMS key for storage encryption (optional)
 
 
 
 ## Usage
-Create main.tf config file and past the following configuration.
+Create main.tf config file and paste/customize the following configuration.
 
 
 ```hcl
@@ -30,7 +31,7 @@ Create main.tf config file and past the following configuration.
 
 
 module "rds" {
-  source                  = "git::https://git@github.com/ucopacme/terraform-aws-rds.git?ref=v0.0.7"
+  source                  = "git::https://git@github.com/ucopacme/terraform-aws-rds.git?ref=v0.0.8"
   subnet_ids              = [xxxx, xxxx]
   allocated_storage       = "50"
   max_allocated_storage   = "100" # by default it is disabled
@@ -40,6 +41,7 @@ module "rds" {
   engine_version          = "8.0.32"
   instance_class          = "db.t4g.medium"
   storage_type            = "gp3"
+  create_cmk              = false # by default it is false
    parameter_group_name   = "xxxxx"
   publicly_accessible     = false # by default it is false
   deletion_protection     = false # by default it is true
@@ -60,7 +62,7 @@ module "rds" {
 ## Usage
 Deployment of RDS from snapshot
 
-Create main.tf config file and past the following configuration.
+Create main.tf config file and paste/customize the following configuration.
 
 
 ```hcl
@@ -68,7 +70,7 @@ Create main.tf config file and past the following configuration.
 #
 
 module "rds" {
-  source                          = "git::https://git@github.com/ucopacme/terraform-aws-rds.git?ref=v0.0.6"
+  source                          = "git::https://git@github.com/ucopacme/terraform-aws-rds.git?ref=v0.0.8"
   subnet_ids                      = ["xxxx", "xxxxx"]
   allocated_storage               = "60"
   max_allocated_storage           = "100" # by default it is disabled
