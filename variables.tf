@@ -49,6 +49,12 @@ variable "create_cmk_multi_region" {
   description = "Create CMK as a multi-region key (no effect if create_cmk is not true)"
   type        = bool
 }
+variable "cmk_allowed_aws_account_ids" {
+  type        = list(string)
+  description = "List of other AWS account IDs who will be allowed access to the CMK (no effect if create_cmk is not true)"
+  default     = []
+}
+
 variable "storage_type" {
   default     = "gp3"
   description = "gp2, gp3 (default), or io1."
