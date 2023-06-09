@@ -44,14 +44,14 @@ variable "create_cmk" {
   description = "Create a customer-managed KMS key (CMK) to use for storage encryption"
   type        = bool
 }
-variable "create_cmk_multi_region" {
+variable "cmk_multi_region" {
   default     = false
   description = "Create CMK as a multi-region key (no effect if create_cmk is not true)"
   type        = bool
 }
 variable "cmk_allowed_aws_account_ids" {
   type        = list(string)
-  description = "List of other AWS account IDs who will be allowed access to the CMK (no effect if create_cmk is not true)"
+  description = "List of other AWS account IDs that will be allowed access to the CMK (no effect if create_cmk is not true)"
   default     = []
 }
 

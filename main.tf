@@ -80,7 +80,7 @@ resource "aws_kms_key" "this" {
   description              = "CMK for RDS instance ${var.identifier}"
   key_usage                = "ENCRYPT_DECRYPT"
   customer_master_key_spec = "SYMMETRIC_DEFAULT"
-  multi_region             = var.create_cmk_multi_region
+  multi_region             = var.cmk_multi_region
   policy                   = data.aws_iam_policy_document.this.json
   tags                     = var.tags
 }
