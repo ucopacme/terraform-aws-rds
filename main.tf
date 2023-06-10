@@ -85,6 +85,12 @@ resource "aws_kms_key" "this" {
   tags                     = var.tags
 }
 
+resource "aws_kms_alias" "this" {
+  count         = var.create_cmk ? 1 : 0
+  name          = "alias/ucop/rds/${var.identifier}"
+  target_key_id = aws_kms_key.this.key_id
+}
+
 data "aws_iam_policy_document" "this" {
   statement {
     sid       = "Enable IAM User Permissions"
