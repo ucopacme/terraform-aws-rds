@@ -88,7 +88,7 @@ resource "aws_kms_key" "this" {
 resource "aws_kms_alias" "this" {
   count         = var.create_cmk ? 1 : 0
   name          = "alias/ucop/rds/${var.identifier}"
-  target_key_id = aws_kms_key.this.key_id
+  target_key_id = aws_kms_key.this.*.key_id[0]
 }
 
 data "aws_iam_policy_document" "this" {
