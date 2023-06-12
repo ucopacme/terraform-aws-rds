@@ -60,6 +60,11 @@ variable "storage_type" {
   description = "gp2, gp3 (default), or io1."
   type        = string
 }
+variable "iops" {
+  default     = 3000
+  description = "(Optional) The amount of provisioned IOPS"
+  type        = number
+}
 variable "multi_az" {
   default     = false
   description = "Specifies if the RDS instance is multi-AZ"
