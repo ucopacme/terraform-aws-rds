@@ -149,6 +149,12 @@ variable "secret_manager_name" {
   default = ""
 }
 
+variable "ca_cert_identifier" {
+  type = string
+  description = "The identifier of the CA certificate for the DB instance"
+  default = "rds-ca-rsa2048-g1"
+}
+
  variable "max_allocated_storage" {
   type = string
   description = "Max allocate storage"

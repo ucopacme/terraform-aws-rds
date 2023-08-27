@@ -7,6 +7,7 @@ resource "aws_db_instance" "this" {
   allocated_storage               = var.allocated_storage
 /* #   max_allocated_storage   = var.max_allocated_storage */
   backup_retention_period         = var.backup_retention_period
+  ca_cert_identifier              = var.ca_cert_identifier
   deletion_protection             = var.deletion_protection
   db_subnet_group_name            = aws_db_subnet_group.this.*.id[0]
   engine                          = var.engine
