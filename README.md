@@ -31,14 +31,14 @@ Create main.tf config file and paste/customize the following configuration.
 
 
 module "rds" {
-  source                  = "git::https://git@github.com/ucopacme/terraform-aws-rds.git?ref=v0.0.8"
+  source                  = "git::https://git@github.com/ucopacme/terraform-aws-rds.git?ref=v0.0.9"
   subnet_ids              = [xxxx, xxxx]
   allocated_storage       = "50"
   max_allocated_storage   = "100" # by default it is disabled
   engine                  = "MySQL"
   identifier              = "xxx"
   secret_manager_name     = "xxxx"
-  engine_version          = "8.0.32"
+  engine_version          = "8.0.34"
   instance_class          = "db.t4g.medium"
   storage_type            = "gp3"
   create_cmk              = false # by default it is false
@@ -70,14 +70,14 @@ Create main.tf config file and paste/customize the following configuration.
 #
 
 module "rds" {
-  source                          = "git::https://git@github.com/ucopacme/terraform-aws-rds.git?ref=v0.0.8"
+  source                          = "git::https://git@github.com/ucopacme/terraform-aws-rds.git?ref=v0.0.9"
   subnet_ids                      = ["xxxx", "xxxxx"]
   allocated_storage               = "60"
   max_allocated_storage           = "100" # by default it is disabled
   snapshot_identifier             = "snapshot ARN"
   identifier                      = "database-1"
   secret_manager_name             = "xxx"
-  # engine_version                = "8.0.32"
+  # engine_version                = "8.0.34"
   instance_class                  = "db.t4g.medium"
   storage_type                    = "gp3"
   publicly_accessible             = false # by default it is false
