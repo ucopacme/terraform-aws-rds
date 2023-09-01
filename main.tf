@@ -15,7 +15,7 @@ resource "aws_db_instance" "this" {
   identifier                      = var.identifier
   instance_class                  = var.instance_class
   multi_az                        = var.multi_az
-  manage_master_user_password     = var.manage_master_user_password
+  manage_master_user_password     = var.manage_master_user_password ? true : null
   username                        = var.username
   password                        = var.manage_master_user_password ? null : jsondecode(aws_secretsmanager_secret_version.this[0].secret_string)["password"]
   skip_final_snapshot             = var.skip_final_snapshot
