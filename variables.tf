@@ -155,6 +155,18 @@ variable "ca_cert_identifier" {
   default = "rds-ca-rsa2048-g1"
 }
 
+variable "username" {
+  type = string
+  description = "Username for the master DB user."
+  default = "admin"
+}
+
+variable "manage_master_user_password" {
+  description = "Set to true to allow RDS to manage the master user password in Secrets Manager."
+  type        = bool
+  default     = false
+}
+
  variable "max_allocated_storage" {
   type = string
   description = "Max allocate storage"
