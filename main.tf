@@ -31,7 +31,6 @@ resource "aws_db_instance" "this" {
   parameter_group_name            = var.parameter_group_name
   option_group_name               = var.option_group_name
   apply_immediately               = var.apply_immediately
-  timezone                        = var.timezone
   enabled_cloudwatch_logs_exports = var.enabled_cloudwatch_logs_exports
   tags                            = var.tags
 }
