@@ -14,10 +14,6 @@ variable "vpc_security_group_ids" {
   default     = []
 }
 
-variable "timezone" {
-  default = "UTC"
-}
-
 variable "enabled" {
   default     = true
   description = "Set to `false` to prevent the module from creating any resources"
