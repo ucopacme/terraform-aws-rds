@@ -38,11 +38,11 @@ module "rds" {
   engine                  = "MySQL"
   identifier              = "xxx"
   secret_manager_name     = "xxxx"
-  engine_version          = "8.0.34"
+  engine_version          = "8.0.36"
   instance_class          = "db.t4g.medium"
   storage_type            = "gp3"
   create_cmk              = false # by default it is false
-   parameter_group_name   = "xxxxx"
+  parameter_group_name   = "xxxxx"
   publicly_accessible     = false # by default it is false
   deletion_protection     = false # by default it is true
   apply_immediately       = true  # by dafault it is true
@@ -55,8 +55,6 @@ module "rds" {
     "ucop:group"       = "xxx"
     "ucop:source"      = "xxxx"
   }
-
-
 }
 
 ## Usage
@@ -77,7 +75,7 @@ module "rds" {
   snapshot_identifier             = "snapshot ARN"
   identifier                      = "database-1"
   secret_manager_name             = "xxx"
-  # engine_version                = "8.0.34"
+  # engine_version                = "8.0.36"
   instance_class                  = "db.t4g.medium"
   storage_type                    = "gp3"
   publicly_accessible             = false # by default it is false
@@ -94,5 +92,4 @@ module "rds" {
     "ucop:group"       = xxx
     "ucop:source"      = xxx
   }
-
 }
