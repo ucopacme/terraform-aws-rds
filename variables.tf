@@ -167,8 +167,15 @@ variable "manage_master_user_password" {
   description = "Max allocate storage"
   default = null
 }
+
 variable "snapshot_identifier" {
   type = string
   description = "snapshot_identifier id"
   default = null
+}
+
+variable "performance_insights_enabled" {
+  description = "Specifies whether Performance Insights is enabled or not."
+  type        = bool
+  default     = false
 }
