@@ -33,6 +33,8 @@ resource "aws_db_instance" "this" {
   option_group_name               = var.option_group_name
   apply_immediately               = var.apply_immediately
   enabled_cloudwatch_logs_exports = var.enabled_cloudwatch_logs_exports
+  maintenance_window              = var.maintenance_window
+  backup_window                   = var.backup_window
   tags                            = var.tags
 }
 

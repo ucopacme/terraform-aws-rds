@@ -179,3 +179,15 @@ variable "performance_insights_enabled" {
   type        = bool
   default     = false
 }
+
+variable "backup_window" {
+  description = "When to perform DB backups"
+  type        = string
+  default     = "02:00-03:00"
+}
+
+variable "maintenance_window" {
+  description = "When to perform DB maintenance"
+  type        = string
+  default     = "sun:05:00-sun:06:00"
+}
