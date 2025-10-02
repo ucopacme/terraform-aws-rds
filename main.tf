@@ -1,11 +1,9 @@
 data "aws_caller_identity" "this" {}
 
-# create RDS db instance
-
 resource "aws_db_instance" "this" {
   count                           = var.enabled ? 1 : 0
   allocated_storage               = var.allocated_storage
-/* #   max_allocated_storage   = var.max_allocated_storage */
+  max_allocated_storage           = var.max_allocated_storage
   backup_retention_period         = var.backup_retention_period
   ca_cert_identifier              = var.ca_cert_identifier
   deletion_protection             = var.deletion_protection
@@ -38,7 +36,6 @@ resource "aws_db_instance" "this" {
   tags                            = var.tags
 }
 
-# create db subnet group
 resource "aws_db_subnet_group" "this" {
   count       = var.enabled ? 1 : 0
   name        = "${var.identifier}-subnet-group"
@@ -47,17 +44,12 @@ resource "aws_db_subnet_group" "this" {
   tags        = var.tags
 }
 
-
-#  create a random generated password which we will use in secrets.
 resource "random_password" "password" {
   length           = 12
   special          = true
   min_special      = 2
   override_special = "_%"
 }
-
-
-# create secret and secret versions for database master account
 
 resource "aws_secretsmanager_secret" "this" {
   count                   = var.manage_master_user_password ? 0 : 1
