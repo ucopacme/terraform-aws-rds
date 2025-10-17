@@ -1,193 +1,215 @@
-variable "copy_tags_to_snapshot" {
-  description = "On delete, copy all Instance tags to the final snapshot"
-  type        = bool
-  default     = true
-}
-variable "enabled_cloudwatch_logs_exports" {
-  description = "List of log types to enable for exporting to CloudWatch logs. If omitted, no logs will be exported. Valid values (depending on engine): alert, audit, error, general, listener, slowquery, trace, postgresql (PostgreSQL), upgrade (PostgreSQL)."
-  type        = list(string)
-  default     = []
-}
-variable "vpc_security_group_ids" {
-  description = "List of VPC security groups to associate"
-  type        = list(string)
-  default     = []
-}
-
 variable "enabled" {
+  type        = bool
   default     = true
-  description = "Set to `false` to prevent the module from creating any resources"
-  type        = bool
-}
-variable "skip_final_snapshot" {
-  default     = true
-  description = "Set to `false` to skip_final_snapshot"
-  type        = bool
-}
-variable "storage_encrypted" {
-  default     = true
-  description = "Set to `false` to not encrypt the storage"
-  type        = bool
-}
-variable "kms_key_id" {
-  default     = null
-  description = "(Optional) ARN of existing KMS encryption key to use for storage encryption"
-  type        = string
-}
-variable "create_cmk" {
-  default     = false
-  description = "Create a customer-managed KMS key (CMK) to use for storage encryption"
-  type        = bool
-}
-variable "cmk_multi_region" {
-  default     = false
-  description = "Create CMK as a multi-region key (no effect if create_cmk is not true)"
-  type        = bool
-}
-variable "cmk_allowed_aws_account_ids" {
-  type        = list(string)
-  description = "List of other AWS account IDs that will be allowed access to the CMK (no effect if create_cmk is not true)"
-  default     = []
+  description = "Enable or disable creation of resources"
 }
 
-variable "storage_type" {
-  default     = "gp3"
-  description = "gp2, gp3 (default), or io1."
-  type        = string
-}
-variable "storage_throughput" {
-  default     = 125
-  description = "(Optional) The storage throughput value for the DB instance"
-  type        = number
-}
-variable "iops" {
-  default     = 3000
-  description = "(Optional) The amount of provisioned IOPS"
-  type        = number
-}
-variable "multi_az" {
-  default     = false
-  description = "Specifies if the RDS instance is multi-AZ"
-  type        = bool
-}
-variable "publicly_accessible" {
-  default     = false
-  description = "Set to `false` to prevent Database accessibility"
-  type        = bool
-}
-
-variable "parameter_group_name" {
-  default = "default.mysql8.0"
-}
-variable "option_group_name" {
-  default = ""
-}
-variable "deletion_protection" {
-  default     = true
-  description = "Set to `false` to prevent database from deletation"
-  type        = bool
-}
-
-variable "apply_immediately" {
-  default     = true
-  description = "Set to `false` to prevent immediate changes"
-  type        = bool
-}
-variable "allocated_storage" {
-  default     = ""
-  description = "Allocate storage size"
-  type        = string
-}
-
-variable "backup_retention_period" {
-  default     = 14
-  description = "enable auto backup and retention"
-  type        = number
-}
 variable "engine" {
-  default     = ""
-  description = "Specify engine name"
   type        = string
-}
-variable "identifier" {
-  default     = ""
-  description = "Specify DB name"
-  type        = string
+  description = "Database engine (mysql, postgres, db2-se)"
+  default     = "db2-se"
 }
 
 variable "engine_version" {
-  default     = ""
-  description = "Specify DB version"
   type        = string
+  description = "Database engine version"
+  default     = "11.5.8.0"
 }
-variable "instance_class" {
-  default     = ""
-  description = "Specify instance type"
+
+variable "identifier" {
   type        = string
+  description = "RDS instance identifier"
+  default     = ""
 }
 
-variable "tags" {
-  default     = {}
-  description = "A map of tags to add to all resources"
-  type        = map(string)
-}
-
-variable "subnet_ids" {
-  type        = list(string)
-  description = "List of subnets"
-  default     = []
-}
-
-variable "secret_manager_name" {
-  type = string
-  description = " secret manager name"
-  default = ""
-}
-
-variable "ca_cert_identifier" {
-  type = string
-  description = "The identifier of the CA certificate for the DB instance"
-  default = "rds-ca-rsa2048-g1"
-}
-
-variable "username" {
-  type = string
-  description = "Username for the master DB user."
-  default = "admin"
-}
-
-variable "manage_master_user_password" {
-  description = "Set to true to allow RDS to manage the master user password in Secrets Manager."
+variable "skip_final_snapshot" {
+  description = "Set to true to skip final snapshot when deleting RDS instance"
   type        = bool
-  default     = false
+  default     = true
 }
 
- variable "max_allocated_storage" {
-  type = string
-  description = "Max allocate storage"
+variable "instance_class" {
+  type        = string
+  description = "RDS instance class"
+  default     = "db.m6i.large"
+}
+
+variable "allocated_storage" {
+  type        = number
+  description = "Allocated storage in GB (DB2 requires minimum 400GB)"
+  default     = 400
+}
+
+variable "max_allocated_storage" {
+  type        = number
+  description = "Maximum storage for autoscaling"
+  default     = 500
+}
+
+variable "backup_retention_period" {
+  type        = number
+  default     = 28
+}
+
+variable "backup_window" {
+  type    = string
   default = null
 }
 
+variable "maintenance_window" {
+  type    = string
+  default = null
+}
+
+variable "multi_az" {
+  type    = bool
+  default = false
+}
+
+variable "publicly_accessible" {
+  type    = bool
+  default = false
+}
+
+variable "deletion_protection" {
+  type    = bool
+  default = true
+}
+
+variable "apply_immediately" {
+  type    = bool
+  default = true
+}
+
+variable "manage_master_user_password" {
+  type    = bool
+  default = true
+}
+
+variable "username" {
+  type    = string
+  default = "admin"
+}
+
+variable "secret_manager_name" {
+  type    = string
+  default = ""
+}
+
+variable "storage_encrypted" {
+  type    = bool
+  default = true
+}
+
+variable "kms_key_id" {
+  type    = string
+  default = null
+}
+
+variable "create_cmk" {
+  type    = bool
+  default = false
+}
+
+variable "cmk_multi_region" {
+  type    = bool
+  default = false
+}
+
+variable "cmk_allowed_aws_account_ids" {
+  type    = list(string)
+  default = []
+}
+
+variable "storage_type" {
+  type        = string
+  description = "Storage type (gp3 for MySQL/Postgres, gp3 for DB2)"
+  default     = "gp3"
+}
+
+variable "iops" {
+  type        = number
+  description = "IOPS (not required for DB2-SE)"
+  default     = null
+}
+
+variable "storage_throughput" {
+  type        = number
+  description = "Storage throughput in MB/s (optional for gp3)"
+  default     = null
+}
+
+variable "parameter_group_name" {
+  type    = string
+  default = null
+}
+
+variable "option_group_name" {
+  type    = string
+  default = null
+}
+
+variable "copy_tags_to_snapshot" {
+  type    = bool
+  default = true
+}
+
+variable "enabled_cloudwatch_logs_exports" {
+  type    = list(string)
+  default = ["audit", "error"]
+}
+
+variable "vpc_security_group_ids" {
+  type    = list(string)
+  default = []
+}
+
+variable "subnet_ids" {
+  type    = list(string)
+  default = []
+}
+
+variable "tags" {
+  type    = map(string)
+  default = {}
+}
+
+# DB2 BYOL-specific
+variable "license_model" {
+  type        = string
+  description = "License model for DB2 (BYOL required)"
+  default     = "general-public-license"
+}
+
+variable "ibm_customer_id" {
+  type        = string
+  description = "IBM customer ID for DB2 BYOL"
+  default     = ""
+}
+
+variable "ibm_site_id" {
+  type        = string
+  description = "IBM site ID for DB2 BYOL"
+  default     = ""
+}
+
+variable "db2_family" {
+  type        = string
+  description = "DB2 family name"
+  default     = "db2-ae-11.5"
+}
+
 variable "snapshot_identifier" {
-  type = string
-  description = "snapshot_identifier id"
+  type    = string
   default = null
 }
 
 variable "performance_insights_enabled" {
-  description = "Specifies whether Performance Insights is enabled or not."
-  type        = bool
-  default     = false
+  type    = bool
+  default = true
 }
 
-variable "backup_window" {
-  description = "When to perform DB backups"
-  type        = string
-  default     = null
-}
-
-variable "maintenance_window" {
-  description = "When to perform DB maintenance"
-  type        = string
-  default     = null
+variable "ca_cert_identifier" {
+  type    = string
+  default = "rds-ca-rsa2048-g1"
 }
