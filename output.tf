@@ -1,15 +1,15 @@
-# Output the Endpoint(w/ port) of the RDS instance
+############################################
+# Outputs
+############################################
 output "rds_endpoint" {
-  description = "RDS EndPoint"
   value       = join("", aws_db_instance.this.*.endpoint)
+  description = "RDS EndPoint with port"
 }
 
-# Output the ID of the RDS instance
 output "rds_instance_name" {
   value = join("", aws_db_instance.this.*.id)
 }
 
-# Output only Address of RDS instance
 output "rds_address" {
   value = join("", aws_db_instance.this.*.address)
 }
@@ -22,12 +22,12 @@ output "db_subnet_group" {
   value = join("", aws_db_subnet_group.this.*.id)
 }
 
-output "id" {
-  description = "[secret id](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/secretsmanager_secret#id)"
+output "secret_id" {
   value       = join("", aws_secretsmanager_secret.this.*.id)
+  description = "Secrets Manager ID"
 }
 
-output "secret_manager" {
-  description = "[secret id](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/secretsmanager_secret#id)"
+output "secret_manager_name" {
   value       = join("", aws_secretsmanager_secret.this.*.name)
+  description = "Secrets Manager Name"
 }
