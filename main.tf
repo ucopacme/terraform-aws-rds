@@ -35,8 +35,8 @@ resource "aws_secretsmanager_secret" "this" {
 }
 
 resource "aws_secretsmanager_secret_version" "this" {
-  count         = var.manage_master_user_password ? 0 : 1
-  secret_id     = aws_secretsmanager_secret.this[0].id
+  count     = var.manage_master_user_password ? 0 : 1
+  secret_id = aws_secretsmanager_secret.this[0].id
   secret_string = jsonencode({
     username = var.username
     password = random_password.password.result
@@ -64,8 +64,8 @@ data "aws_iam_policy_document" "this" {
   }
 
   statement {
-    sid     = "AllowUseOfTheKey"
-    effect  = "Allow"
+    sid    = "AllowUseOfTheKey"
+    effect = "Allow"
     actions = [
       "kms:Encrypt",
       "kms:Decrypt",
@@ -82,8 +82,8 @@ data "aws_iam_policy_document" "this" {
   }
 
   statement {
-    sid     = "AllowAttachmentOfPersistentResources"
-    effect  = "Allow"
+    sid    = "AllowAttachmentOfPersistentResources"
+    effect = "Allow"
     actions = [
       "kms:CreateGrant",
       "kms:ListGrants",
@@ -147,29 +147,31 @@ resource "aws_db_parameter_group" "db2_param_group" {
 # RDS DB Instance
 ############################################
 resource "aws_db_instance" "this" {
-  count                        = var.enabled ? 1 : 0
-  identifier                   = var.identifier
-  engine                       = var.engine
-  engine_version               = var.engine_version
-  instance_class               = var.instance_class
-  license_model                = var.license_model
+  count      = var.enabled ? 1 : 0
+  identifier = var.identifier
+
   allocated_storage            = var.allocated_storage
-  max_allocated_storage        = var.max_allocated_storage
-  storage_type                 = var.storage_type
-  storage_encrypted            = var.storage_encrypted
-  kms_key_id                   = var.create_cmk ? aws_kms_key.this[0].arn : var.kms_key_id
-  db_subnet_group_name         = aws_db_subnet_group.this[0].id
-  vpc_security_group_ids       = var.vpc_security_group_ids
-  publicly_accessible          = var.publicly_accessible
-  multi_az                     = var.multi_az
-  deletion_protection          = var.deletion_protection
+  availability_zone            = var.availability_zone
   apply_immediately            = var.apply_immediately
   backup_retention_period      = var.backup_retention_period
   backup_window                = var.backup_window
-  maintenance_window           = var.maintenance_window
-  copy_tags_to_snapshot        = var.copy_tags_to_snapshot
-  performance_insights_enabled = var.performance_insights_enabled
   ca_cert_identifier           = var.ca_cert_identifier
+  copy_tags_to_snapshot        = var.copy_tags_to_snapshot
+  db_subnet_group_name         = aws_db_subnet_group.this[0].id
+  deletion_protection          = var.deletion_protection
+  engine                       = var.engine
+  engine_version               = var.engine_version
+  instance_class               = var.instance_class
+  kms_key_id                   = var.create_cmk ? aws_kms_key.this[0].arn : var.kms_key_id
+  license_model                = var.license_model
+  maintenance_window           = var.maintenance_window
+  max_allocated_storage        = var.max_allocated_storage
+  multi_az                     = var.multi_az
+  performance_insights_enabled = var.performance_insights_enabled
+  publicly_accessible          = var.publicly_accessible
+  storage_encrypted            = var.storage_encrypted
+  storage_type                 = var.storage_type
+  vpc_security_group_ids       = var.vpc_security_group_ids
 
   # Conditional IOPS / throughput only for non-DB2-SE engines
   iops               = var.engine == "db2-se" ? null : var.iops
@@ -180,12 +182,12 @@ resource "aws_db_instance" "this" {
 
   # Master credentials
   manage_master_user_password = var.manage_master_user_password ? true : null
-  username = var.manage_master_user_password ? var.username : jsondecode(aws_secretsmanager_secret_version.this[0].secret_string)["username"]
-  password = var.manage_master_user_password ? null : jsondecode(aws_secretsmanager_secret_version.this[0].secret_string)["password"]
+  username                    = var.manage_master_user_password ? var.username : jsondecode(aws_secretsmanager_secret_version.this[0].secret_string)["username"]
+  password                    = var.manage_master_user_password ? null : jsondecode(aws_secretsmanager_secret_version.this[0].secret_string)["password"]
 
   enabled_cloudwatch_logs_exports = var.enabled_cloudwatch_logs_exports
-  skip_final_snapshot       = var.skip_final_snapshot
-  final_snapshot_identifier = var.skip_final_snapshot ? null : "${var.identifier}-final-snapshot-${timestamp()}"
+  skip_final_snapshot             = var.skip_final_snapshot
+  final_snapshot_identifier       = var.skip_final_snapshot ? null : "${var.identifier}-final-snapshot-${timestamp()}"
 
   tags = var.tags
 
