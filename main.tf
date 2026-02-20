@@ -157,6 +157,7 @@ resource "aws_db_instance" "this" {
   backup_window                = var.backup_window
   ca_cert_identifier           = var.ca_cert_identifier
   copy_tags_to_snapshot        = var.copy_tags_to_snapshot
+  db_name                      = var.db_name
   db_subnet_group_name         = aws_db_subnet_group.this[0].id
   deletion_protection          = var.deletion_protection
   engine                       = var.engine

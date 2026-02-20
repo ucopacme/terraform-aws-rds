@@ -218,3 +218,7 @@ variable "availability_zone" {
   type    = string
   default = null
 }
+variable "db_name" {
+  type    = string
+  default = null
+}
